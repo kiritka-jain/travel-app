@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-const roles = require('./roles');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -12,30 +11,35 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Roles);
-      User.hasMany(models.Trips);
+      User.belongsTo(models.Role);
     }
   }
   User.init({
-    id: {
+    name: DataTypes.STRING,
+    loginId: {
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    },roles_Id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Roles",
-        key: "id",
+      type: DataTypes.STRING,
+      unique: true,
+      references: { 
+        model: 'Role',
+        key: 'id',
       },
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    login_id: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, 
+      field: 'login_id', 
+    },
+    password: DataTypes.STRING,
+    roleId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      references: { 
+        model: 'Role',
+        key: 'id',
+      },
+      field: 'RoleId', 
+    },
+  }, {
     sequelize,
     modelName: 'User',
-  }
-  );
+    tableName: 'users',
+  });
   return User;
 };
