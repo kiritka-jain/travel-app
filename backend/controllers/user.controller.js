@@ -26,7 +26,7 @@ const userController = {
     },
     updateUser: async(req,res)=>{
       try{
-        var userId = req.query.id;
+        var userId = req.params.id;
         const updateParams = req.body;
         const update_user = await userService.updateUser(userId,updateParams);
         res.status(200).send(update_user);
@@ -36,7 +36,7 @@ const userController = {
     },
     getUserById: async(req,res)=>{
       try{
-        var userId = req.query.id;
+        var userId = req.params.id;
         const required_user = await userService.getUserById(userId);
         res.status(200).send(required_user);
       }catch(error){
