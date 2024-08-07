@@ -1,9 +1,9 @@
 const tripService = require("../services/trip.service.js");
+const {ValidationError} = require("../errors/custom.errors.js");
 
 const tripController = {
   allTrips: async (req, res) => {
     try {
-      console.log("I am in trip controller.");
       const trips = await tripService.allTrips(res, req);
       res.status(200).send(trips);
     } catch (err) {
@@ -11,10 +11,17 @@ const tripController = {
     }
   },
   addTrip: async (req, res) => {
+    const UserId = JSON.parse(req.params.userId);
+    console.log(typeof(userId));
     console.log(req.body);
-    const { UserId, destination , StartsAt , EndsAt} = req.body;
+    const { destination, StartsAt, EndsAt } = req.body;
     try {
-      const tripInfo = await tripService.addTrip({  UserId, destination , StartsAt , EndsAt });
+      const tripInfo = await tripService.addTrip({
+        UserId,
+        destination,
+        StartsAt,
+        EndsAt,
+      });
       res.status(201).json(tripInfo);
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -24,6 +31,16 @@ const tripController = {
         res.status(500).json({ message: "Server error" });
       }
     }
-  }
+  },
+  getTripsByUserId: async (req,res) => {
+    const id = req.params.userId;
+    console.log("user id from controller in trip",id)
+    try {
+      const trips = await tripService.getTripsById(id);
+      res.status(200).send(trips);
+    } catch (err) {
+      console.log("error:", err);
+    }
+  },
 };
 module.exports = tripController;
