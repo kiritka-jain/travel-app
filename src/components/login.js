@@ -6,7 +6,7 @@ const Login = (props) => {
   return (
     <div className="loginformcontainer">
       <div className="headerblock">
-        <h4>Log In to Travel App</h4>
+        <h3>Log In to Travel App</h3>
       </div>
         <div className="loginform">
           <TextField id="outlined-basic" 

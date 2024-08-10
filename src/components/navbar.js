@@ -4,7 +4,7 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import { useState } from 'react';
+
 
 
 const NavBar=(props)=>{
@@ -13,7 +13,7 @@ const NavBar=(props)=>{
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
               Travel App
             </Typography>
             <Button color="inherit" href='/signup'>Sign Up</Button>

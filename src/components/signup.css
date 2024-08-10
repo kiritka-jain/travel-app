@@ -1,13 +1,14 @@
 .signupformcontainer{
-    height:400px;
-    width: 300px;
+    display: flex;
     border-width: 3px;
     padding: 2px;
-    background-color: rgb(211, 230, 246);
+
     align-content: center;
     align-items: center;
     text-align: center;
-    float:right;
+    height: 100vh;
+    justify-content: flex-start;
+    flex-direction: column;
 
 }
 .signupform{
