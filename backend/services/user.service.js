@@ -40,13 +40,28 @@ class User {
       console.log("error:", error);
     }
   }
-  static async getUserById(userId){
-    try{
-        const requiredUser = await db.User.findOne({where:{id:userId}});
-        return JSON.stringify(requiredUser);
-
-    }catch(err){
-        console.log("error:",err);
+  static async getUserById(userId) {
+    try {
+      const requiredUser = await db.User.findOne({ where: { id: userId } });
+      return JSON.stringify(requiredUser);
+    } catch (err) {
+      console.log("error:", err);
+    }
+  }
+  static async getUserByLoginId(userId, pswd) {
+    try {
+      const requiredUser = await db.User.findOne({
+        where: {
+          loginId: userId,
+          password: pswd,
+        },
+      });
+      if (!requiredUser) {
+        return " Invalid Credentials.";
+      }
+      return JSON.stringify(requiredUser.id);
+    } catch (err) {
+      console.log("error:", err);
     }
   }
 }

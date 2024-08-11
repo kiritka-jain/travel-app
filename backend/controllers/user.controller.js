@@ -42,6 +42,17 @@ const userController = {
       }catch(error){
         console.log("error:",error);
       }
+    },
+    getUserByloginId: async(req,res)=>{
+      try{
+        var loginId = req.query.loginId;
+        var password = req.query.password;
+        console.log("from Controller:",loginId,password);
+        const required_user = await userService.getUserByLoginId(loginId,password);
+        res.status(200).send(required_user);
+      }catch(error){
+        console.log("error:",error);
+      }
     }
 }
 module.exports = userController;
