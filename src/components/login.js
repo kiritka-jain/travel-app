@@ -9,6 +9,8 @@ const Login = (props) => {
     loginId: "",
     password: "",
   });
+  const [isLogging, setIsLogging] = useState(false);
+
   const validateEmail = (loginId) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(loginId);
@@ -23,6 +25,7 @@ const Login = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLogging(true);
     if (validateEmail(formData.loginId)) {
       const body = {
         loginId: formData.loginId,
@@ -31,10 +34,12 @@ const Login = (props) => {
       try {
         const response = await axios.post("/user/get_token", body);
         const token = response.data;
-        sessionStorage.setItem('userId', token.UserId);
-        sessionStorage.setItem('token', token.token);
+        sessionStorage.setItem("userId", token.UserId);
+        sessionStorage.setItem("token", token.token);
       } catch (err) {
         console.log("err:", err);
+      } finally {
+        setIsLogging(false);
       }
     }
   };
@@ -67,8 +72,9 @@ const Login = (props) => {
               style: { fontFamily: "password" },
             }}
           />
+
           <Button className="logIn" type="submit" variant="contained">
-            LogIn
+            {isLogging ? "Logging In..." : "Log in"}
           </Button>
         </div>
       </form>
