@@ -24,15 +24,15 @@ const Login = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateEmail(formData.loginId)) {
-      const queryParams = {
-        params: {
-          loginId: formData.loginId,
-          password: formData.password,
-        },
+      const body = {
+        loginId: formData.loginId,
+        password: formData.password,
       };
       try {
-        const response = await axios.post("/user/get_user_by_loginId", queryParams);
-        console.log(response.data);
+        const response = await axios.post("/user/get_token", body);
+        const token = response.data;
+        sessionStorage.setItem('userId', token.UserId);
+        sessionStorage.setItem('token', token.token);
       } catch (err) {
         console.log("err:", err);
       }
