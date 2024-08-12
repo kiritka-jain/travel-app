@@ -1,5 +1,5 @@
 const db = require("../models/index.js");
-const { ValidationError, ServerError } = require("../errors/custom.errors.js");
+const { Unauthorised, ServerError, BadRequest,NotFoundError } = require("../errors/custom.errors.js");
 const { all } = require("q");
 const { TIME, Op } = require("sequelize");
 const getTimeWithAddedHours = require("./helperfunction.js");
@@ -12,7 +12,7 @@ class User {
       return newUser;
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
-        throw new ValidationError("Invalid user data");
+        throw new Unauthorised("Invalid user data");
       }
       console.log("err", error);
       throw new ServerError("Error adding user");
@@ -29,18 +29,14 @@ class User {
   }
   static async updateUser(userId, updateParams) {
     console.log(userId, updateParams);
-    try {
       const updatedUser = await db.User.update(updateParams, {
         where: { id: userId },
       });
       console.log(updatedUser);
-      if (updatedUser === 0) {
-        return " No user exist with this Id.";
+      if (updatedUser[0] === 0) {
+        throw new NotFoundError(" No user exist with this Id.");
       }
       return " Updated user sucessfully.";
-    } catch (error) {
-      console.log("error:", error);
-    }
   }
   static async getUserById(userId) {
     try {
@@ -51,7 +47,6 @@ class User {
     }
   }
   static async getToken(userId, pswd) {
-    try {
       const requiredUser = await db.User.findOne({
         where: {
           loginId: userId,
@@ -59,32 +54,30 @@ class User {
         },
       });
       if (!requiredUser) {
-        return " Invalid Credentials.";
+        console.log(requiredUser);
+        throw new Unauthorised("Invalid user data");
       }
-      console.log(requiredUser.id)
+      console.log(requiredUser.id);
       const currentTime = getTimeWithAddedHours(0);
       const session = await db.Session.findOne({
         where: {
           UserId: requiredUser.id,
           expiresAt: {
-            [Op.gt]: currentTime 
-          }
-        }
+            [Op.gt]: currentTime,
+          },
+        },
       });
 
       if (session) {
-        return session
+        return session;
       }
       const sessionData = {
         UserId: requiredUser.id,
       };
-      console.log("sessionData:",sessionData);
+      console.log("sessionData:", sessionData);
       const newSession = await db.Session.create(sessionData);
       console.log(newSession);
       return newSession;
-    } catch (err) {
-      console.log("error:", err);
-    }
   }
 }
 module.exports = User;
