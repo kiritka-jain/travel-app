@@ -31,7 +31,7 @@ const Login = (props) => {
         },
       };
       try {
-        const response = await axios.get("/user/get_user_by_loginId", queryParams);
+        const response = await axios.post("/user/get_user_by_loginId", queryParams);
         console.log(response.data);
       } catch (err) {
         console.log("err:", err);

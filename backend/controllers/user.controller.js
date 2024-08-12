@@ -45,9 +45,8 @@ const userController = {
     },
     getUserByloginId: async(req,res)=>{
       try{
-        var loginId = req.query.loginId;
-        var password = req.query.password;
-        console.log("from Controller:",loginId,password);
+        var loginId = req.body.loginId;
+        var password = req.body.password;
         const required_user = await userService.getUserByLoginId(loginId,password);
         res.status(200).send(required_user);
       }catch(error){
