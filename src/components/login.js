@@ -3,6 +3,8 @@ import "./login.css";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { useState } from "react";
+import {useSnackbar} from "notistack";
+
 
 const Login = (props) => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ const Login = (props) => {
     password: "",
   });
   const [isLogging, setIsLogging] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const validateEmail = (loginId) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,10 +37,14 @@ const Login = (props) => {
       try {
         const response = await axios.post("/user/get_token", body);
         const token = response.data;
+        console.log(response.data);
         sessionStorage.setItem("userId", token.UserId);
         sessionStorage.setItem("token", token.token);
+        enqueueSnackbar("User Logged In sucessullly.",{ variant:'success'})
+
       } catch (err) {
         console.log("err:", err);
+        enqueueSnackbar(err,{ variant:'error'})
       } finally {
         setIsLogging(false);
       }

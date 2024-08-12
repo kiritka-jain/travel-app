@@ -17,7 +17,7 @@ const baseController = (controllerFunc) => {
         res.status(401).json({ message: error.message });
       } else if (error instanceof NotFoundError) {
         res.status(404).json({ message: error.message });
-      } else if (error instanceof ForbiddenError) {
+      } else if (error instanceof Forbidden) {
         res.status(403).json({ message: error.message });
       } else if (error instanceof TimeOut) {
         res.status(408).json({ message: error.message });

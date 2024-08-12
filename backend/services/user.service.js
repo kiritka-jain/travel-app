@@ -83,5 +83,20 @@ class User {
     console.log(newSession);
     return newSession;
   }
+  static async logoutSession(token){
+    const currentTime = getTimeWithAddedHours(0);
+    const session = await db.Session.findOne({
+      where: {
+        token: token,
+        expiresAt: {
+          [Op.gt]: currentTime,
+        },
+      },
+    });
+    if (session) {
+      session.destroy();
+    }
+
+  }
 }
 module.exports = User;
