@@ -2,6 +2,8 @@
 const {
   Model
 } = require('sequelize');
+const getTimeWithAddedHours = require("../services/helperfunction.js");
+
 module.exports = (sequelize, DataTypes) => {
   class Session extends Model {
     /**
@@ -15,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Session.init({
-    Token: {
+    token: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
@@ -30,7 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     field: 'UserId', 
   },
-  ExpiresAt: DataTypes.TIME, 
+  expiresAt: {
+    type: DataTypes.TIME,
+    defaultValue: getTimeWithAddedHours(2),
+  },
 },{
     sequelize,
     modelName: 'Session',

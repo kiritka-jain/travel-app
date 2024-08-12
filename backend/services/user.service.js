@@ -1,6 +1,8 @@
 const db = require("../models/index.js");
 const { ValidationError, ServerError } = require("../errors/custom.errors.js");
 const { all } = require("q");
+const { TIME, Op } = require("sequelize");
+const getTimeWithAddedHours = require("./helperfunction.js");
 
 class User {
   static async addUser(userData) {
@@ -48,7 +50,7 @@ class User {
       console.log("error:", err);
     }
   }
-  static async getUserByLoginId(userId, pswd) {
+  static async getToken(userId, pswd) {
     try {
       const requiredUser = await db.User.findOne({
         where: {
@@ -59,7 +61,27 @@ class User {
       if (!requiredUser) {
         return " Invalid Credentials.";
       }
-      return JSON.stringify(requiredUser.id);
+      console.log(requiredUser.id)
+      const currentTime = getTimeWithAddedHours(0);
+      const session = await db.Session.findOne({
+        where: {
+          UserId: requiredUser.id,
+          expiresAt: {
+            [Op.gt]: currentTime 
+          }
+        }
+      });
+
+      if (session) {
+        return session
+      }
+      const sessionData = {
+        UserId: requiredUser.id,
+      };
+      console.log("sessionData:",sessionData);
+      const newSession = await db.Session.create(sessionData);
+      console.log(newSession);
+      return newSession;
     } catch (err) {
       console.log("error:", err);
     }

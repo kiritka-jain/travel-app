@@ -9,7 +9,7 @@ router.post("/add_user",userController.addUser);
 router.get("/get_users", userController.getAll);
 router.put("/update_user/:id", userController.updateUser);
 router.get("/get_user/:id", userController.getUserById);
-router.post("/get_user_by_loginId", userController.getUserByloginId);
+router.post("/get_token", userController.getToken);
 
 /* Nested Route to get all trips of a user*/
 

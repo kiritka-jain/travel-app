@@ -43,11 +43,11 @@ const userController = {
         console.log("error:",error);
       }
     },
-    getUserByloginId: async(req,res)=>{
+    getToken: async(req,res)=>{
       try{
         var loginId = req.body.loginId;
         var password = req.body.password;
-        const required_user = await userService.getUserByLoginId(loginId,password);
+        const required_user = await userService.getToken(loginId,password);
         res.status(200).send(required_user);
       }catch(error){
         console.log("error:",error);
