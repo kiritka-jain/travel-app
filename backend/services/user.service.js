@@ -85,6 +85,7 @@ class User {
   }
   static async logoutSession(token){
     const currentTime = getTimeWithAddedHours(0);
+    console.log("ser token:",token);
     const session = await db.Session.findOne({
       where: {
         token: token,

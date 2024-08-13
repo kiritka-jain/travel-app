@@ -4,15 +4,19 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import {useSnackbar} from "notistack";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 const Login = (props) => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     loginId: "",
     password: "",
   });
   const [isLogging, setIsLogging] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   const validateEmail = (loginId) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,9 +42,9 @@ const Login = (props) => {
         const response = await axios.post("/user/get_token", body);
         const token = response.data;
         console.log(response.data);
-        sessionStorage.setItem("userId", token.UserId);
-        sessionStorage.setItem("token", token.token);
+        login(token.token);
         enqueueSnackbar("User Logged In sucessullly.",{ variant:'success'})
+        navigate("/home");
 
       } catch (err) {
         console.log("err:", err);

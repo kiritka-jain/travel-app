@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button } from "@mui/material";
 import { useState } from "react";
 import {useSnackbar} from "notistack";
+import { useNavigate } from "react-router-dom"
 
 const SignUp = (props) => {
   const roleId = 3;
@@ -21,6 +22,8 @@ const SignUp = (props) => {
   });
   const [apiError, setApiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -72,6 +75,7 @@ const SignUp = (props) => {
       try {
         const response = await axios.post("/user/add_user", newUser);
         console.log("User created succesfully.", response.data);
+        navigate("/login");
       } catch (err) {
         setApiError("Failed to create user. Please try again later.");
         console.log("err:", err);
