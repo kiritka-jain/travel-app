@@ -87,6 +87,10 @@ const Login = (props) => {
           <Button className="logIn" type="submit" variant="contained">
             {isLogging ? "Logging In..." : "Log in"}
           </Button>
+          <div>
+            <p>New to Travel App?</p>
+            <a href="/signup">Sign Up here</a>
+          </div>
         </div>
       </form>
     </div>

@@ -152,6 +152,10 @@ const SignUp = (props) => {
             </Button>
             {apiError && <div className="api-error">{apiError}</div>}
           </div>
+          <div>
+            <p>Already a user?</p>
+            <a href="/login">Login here</a>
+          </div>
         </form>
       </div>
     </div>

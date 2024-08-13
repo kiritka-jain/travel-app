@@ -19,9 +19,6 @@ const NavBar = (props) => {
           </Typography>
           {!token ? (
             <>
-              <Button color="inherit" href="/signup">
-                Sign Up
-              </Button>
               <Button color="inherit" href="/login">
                 Login
               </Button>
