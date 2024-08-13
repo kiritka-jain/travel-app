@@ -48,7 +48,7 @@ const Login = (props) => {
 
       } catch (err) {
         console.log("err:", err);
-        enqueueSnackbar(err,{ variant:'error'})
+        enqueueSnackbar(err.message, { variant:'error'})
       } finally {
         setIsLogging(false);
       }

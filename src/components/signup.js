@@ -23,6 +23,7 @@ const SignUp = (props) => {
   const [apiError, setApiError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const {enqueueSnackbar} = useSnackbar();
 
 
   const validateEmail = (email) => {
@@ -75,14 +76,16 @@ const SignUp = (props) => {
       try {
         const response = await axios.post("/user/add_user", newUser);
         console.log("User created succesfully.", response.data);
+        enqueueSnackbar("User created sucessullly.",{ variant:'success'});
         navigate("/login");
       } catch (err) {
         setApiError("Failed to create user. Please try again later.");
+        enqueueSnackbar("Failed to create user. Please try again later.",{ variant:'error'});
         console.log("err:", err);
       }
     };
     addUser(newUser).finally(() => {
-      isSubmitting(false);
+      setIsSubmitting(false);
     });
   };
 

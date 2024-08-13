@@ -1,5 +1,5 @@
 const tripService = require("../services/trip.service.js");
-const {ValidationError} = require("../errors/custom.errors.js");
+const { ValidationError } = require("../errors/custom.errors.js");
 
 const tripController = {
   allTrips: async (req, res) => {
@@ -11,8 +11,7 @@ const tripController = {
     }
   },
   addTrip: async (req, res) => {
-    const UserId = JSON.parse(req.params.userId);
-    console.log(typeof(userId));
+    const UserId = req.id;
     console.log(req.body);
     const { destination, StartsAt, EndsAt } = req.body;
     try {
@@ -32,15 +31,15 @@ const tripController = {
       }
     }
   },
-  getTripsByUserId: async (req,res) => {
-    const id = req.params.userId;
-    console.log("user id from controller in trip",id)
+  getTripsByUserId: async (req, res) => {
+    const id = req.id;
+    console.log("user id from controller in trip", id);
     try {
       const trips = await tripService.getTripsById(id);
       res.status(200).send(trips);
     } catch (err) {
       console.log("error:", err);
     }
-  },
+  }
 };
 module.exports = tripController;

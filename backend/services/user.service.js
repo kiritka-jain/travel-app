@@ -84,6 +84,13 @@ class User {
     return newSession;
   }
   static async logoutSession(token){
+    const session = await this.getSession(token);
+    if (session) {
+      session.destroy();
+    }
+
+  }
+  static async getSession(token){
     const currentTime = getTimeWithAddedHours(0);
     console.log("ser token:",token);
     const session = await db.Session.findOne({
@@ -94,9 +101,8 @@ class User {
         },
       },
     });
-    if (session) {
-      session.destroy();
-    }
+    return session;
+  
 
   }
 }
