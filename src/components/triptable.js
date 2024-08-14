@@ -29,7 +29,7 @@ const TripTable = (props) => {
 
   return (
     <Box>
-      <Sheet>
+      <Sheet color="primary" variant="outlined" >
         <Table>
           <thead>
             <tr>
