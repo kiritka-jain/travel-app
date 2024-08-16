@@ -42,8 +42,8 @@ const TripTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
               {trips.map((trip) => (
+                <tr>
                 <TripRow
                   key={trip.id}
                   id={trip.id}
@@ -51,8 +51,9 @@ const TripTable = (props) => {
                   starts_at={trip.StartsAt}
                   ends_at={trip.EndsAt}
                 />
+                  </tr>
               ))}
-            </tr>
+          
           </tbody>
         </Table>
       </Sheet>

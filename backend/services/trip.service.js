@@ -31,6 +31,17 @@ class Trip {
         console.log("error:", err);
       }
     }
+    static async updateTrip(tripId,updateParams){
+        console.log(tripId, updateParams);
+        const updatedTrip = await db.Trip.update(updateParams, {
+          where: { id: tripId },
+        });
+        console.log("updated Trip :",updatedTrip);
+        if (updatedTrip[0] === 0) {
+          throw new NotFoundError(" No user exist with this Id.");
+        }
+        return " Updated trip sucessfully.";
+      }
 
   }
 

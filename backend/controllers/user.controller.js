@@ -20,27 +20,27 @@ const userController = {
   updateUser: baseController(async (req, res) => {
       var userId = req.params.id;
       const updateParams = req.body;
-      const update_user = await userService.updateUser(userId, updateParams);
-      res.status(200).send(update_user);
+      const updateUser = await userService.updateUser(userId, updateParams);
+      res.status(200).send(updateUser);
   }),
   getUserById: baseController(async (req, res) => {
       var userId = req.params.id;
-      const required_user = await userService.getUserById(userId);
-      res.status(200).send(required_user);
+      const requiredUser = await userService.getUserById(userId);
+      res.status(200).send(requiredUser);
   }),
   getToken: baseController(async (req, res) => {
       var loginId = req.body.loginId;
       var password = req.body.password;
-      const required_user = await userService.getToken(loginId, password);
-      console.log("Required User:", required_user);
-      res.status(200).send(required_user);
+      const requiredUser = await userService.getToken(loginId, password);
+      console.log("Required User:", requiredUser);
+      res.status(200).send(requiredUser);
   }),
   logoutSeeeion: baseController(async(req,res)=>{
     console.log(req.headers);
     const token = req.headers['authorization'] || req.headers['Authorization'];
     console.log('Token:', token);
-    const required_session = await userService.logoutSession(token);
-    res.status(200).send(required_session);
+    const requiredSession = await userService.logoutSession(token);
+    res.status(200).send(requiredSession);
   })
 };
 module.exports = userController;
