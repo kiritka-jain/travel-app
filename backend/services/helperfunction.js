@@ -1,16 +1,14 @@
-function formatTime(date) {
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
-  }
-
-const getTimeWithAddedHours=(hoursToAdd)  => {
-    const currentTime = new Date();
-    const futureTime = new Date(currentTime.getTime() + hoursToAdd * 60 * 60 * 1000); 
-    return formatTime(futureTime);
-  
+function addHours(date, hours) {
+  const dateCopy = new Date(date.getTime());
+  const hoursToAdd = hours * 60 * 60 * 1000;
+  dateCopy.setTime(date.getTime() + hoursToAdd);
+  return dateCopy;
+}
+const getTimeWithAddedHours = () =>{
+  const date = new Date();
+  const newDate = addHours(date, 2);  
+  return newDate;
 
 }
-
-
-  
   
 module.exports = getTimeWithAddedHours;

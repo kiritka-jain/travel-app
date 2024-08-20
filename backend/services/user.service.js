@@ -62,7 +62,7 @@ class User {
       throw new Unauthorised("Invalid user data");
     }
     console.log(requiredUser.id);
-    const currentTime = getTimeWithAddedHours(0);
+    const currentTime = new Date();
     const session = await db.Session.findOne({
       where: {
         UserId: requiredUser.id,
@@ -77,6 +77,7 @@ class User {
     }
     const sessionData = {
       UserId: requiredUser.id,
+      expiresAt: getTimeWithAddedHours()
     };
     console.log("sessionData:", sessionData);
     const newSession = await db.Session.create(sessionData);
@@ -87,11 +88,13 @@ class User {
     const session = await this.getSession(token);
     if (session) {
       session.destroy();
+      console.log("session destroyed");
     }
 
   }
   static async getSession(token){
-    const currentTime = getTimeWithAddedHours(0);
+    const currentTime = new Date();
+    console.log(currentTime);
     console.log("ser token:",token);
     const session = await db.Session.findOne({
       where: {

@@ -20,6 +20,7 @@ const tripController = {
   },
   getTripsByUserId: async (req, res) => {
     const id = req.id;
+    console.log("userId from extracted from token",id);
       const trips = await tripService.getTripsById(id);
       res.status(200).send(trips);
   },
