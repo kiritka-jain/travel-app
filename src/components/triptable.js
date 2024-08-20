@@ -2,34 +2,13 @@ import Table from "@mui/joy/Table";
 import Sheet from "@mui/joy/Sheet";
 import TripRow from "./triprow";
 import Box from "@mui/joy/Box";
-import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext.js";
-import axios from "axios";
 
 const TripTable = (props) => {
-  const [trips, setTrips] = useState([]);
-  const { token } = useAuth();
-
-  useEffect(() => {
-    const getUserTrips = async (token) => {
-      const headers = {
-        headers: { Authorization: token },
-      };
-      try {
-        const Response = await axios.get("/trip/get_user_trips", headers);
-        const tripList = Response.data;
-        console.log(tripList);
-        setTrips(tripList);
-      } catch (err) {
-        console.log("err", err);
-      }
-    };
-    getUserTrips(token);
-  }, []);
+  const { trips } = props;
 
   return (
     <Box>
-      <Sheet color="primary" variant="outlined" >
+      <Sheet color="primary" variant="outlined">
         <Table>
           <thead>
             <tr>
@@ -42,8 +21,8 @@ const TripTable = (props) => {
             </tr>
           </thead>
           <tbody>
-              {trips.map((trip) => (
-                <tr>
+            {trips.map((trip) => (
+              <tr>
                 <TripRow
                   key={trip.id}
                   id={trip.id}
@@ -51,9 +30,8 @@ const TripTable = (props) => {
                   starts_at={trip.StartsAt}
                   ends_at={trip.EndsAt}
                 />
-                  </tr>
-              ))}
-          
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Sheet>

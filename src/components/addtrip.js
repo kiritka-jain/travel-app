@@ -7,17 +7,14 @@ import Input from "@mui/joy/Input";
 import Add from "@mui/icons-material/Add";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import axios from "axios";
-import { enqueueSnackbar } from "notistack";
 
 
+export default function AddTripCard(props) {
+  const {addTrip} = props;
 
-export default function AddTripCard() {
   const [destination, setDestination] = useState("");
   const [startDate, setStartDate] = useState("2024-01-01");
   const [endDate, setEndDate] = useState("2024-01-01");
-  const { token } = useAuth();
  
 
   const handleAddTrip = async() => {
@@ -26,16 +23,7 @@ export default function AddTripCard() {
       StartsAt: startDate,
       EndsAt: endDate,
     };
-    const headers = {
-      headers: { Authorization: token },
-    };
-    try {
-        const Resonse = await axios.post("/trip/add_trip",newTrip,headers);
-        enqueueSnackbar("User's trip added sucessullly.", { variant: "success" });
-    } catch (error) {
-      console.log("error:", error);
-      enqueueSnackbar(error.message, { variant: "error" });
-    }
+    addTrip(newTrip);
   };
 
   return (

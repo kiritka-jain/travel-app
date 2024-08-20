@@ -2,8 +2,7 @@ import NavBar from "./navbar";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import TripTable from "./triptable";
-import AddTripCard from "./addtrip";
+import Trip from "./trips";
 
 function Home() {
   const { token } = useAuth();
@@ -22,8 +21,7 @@ function Home() {
   return (
     <div className="Home">
       <NavBar />
-      <AddTripCard />
-      <TripTable/>
+     <Trip />
     </div>
   );
 }

@@ -5,7 +5,6 @@ const moment = require("moment");
 const TripRow = (props) => {
   const { id, destination, starts_at, ends_at } = props;
   const diffInDays = moment(ends_at).diff(moment(starts_at), "days");
-  console.log(diffInDays);
 
   return (
     <>
