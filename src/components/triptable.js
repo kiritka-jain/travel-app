@@ -22,9 +22,8 @@ const TripTable = (props) => {
           </thead>
           <tbody>
             {trips.map((trip) => (
-              <tr>
+              <tr key={trip.id}>
                 <TripRow
-                  key={trip.id}
                   id={trip.id}
                   destination={trip.destination}
                   starts_at={trip.StartsAt}
