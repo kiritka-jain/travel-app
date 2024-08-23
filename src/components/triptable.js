@@ -4,7 +4,7 @@ import TripRow from "./triprow";
 import Box from "@mui/joy/Box";
 
 const TripTable = (props) => {
-  const { trips } = props;
+  const { trips,updateTrip } = props;
 
   return (
     <Box>
@@ -28,6 +28,7 @@ const TripTable = (props) => {
                   destination={trip.destination}
                   starts_at={trip.StartsAt}
                   ends_at={trip.EndsAt}
+                  updateTrip={updateTrip}
                 />
               </tr>
             ))}

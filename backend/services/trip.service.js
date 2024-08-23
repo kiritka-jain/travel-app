@@ -39,7 +39,7 @@ class Trip {
     if (updatedTrip[0] === 0) {
       throw new NotFoundError(" No user exist with this Id.");
     }
-    return " Updated trip sucessfully.";
+    return updatedTrip;
   }
   static async deleteTrip(tripId) {
     console.log("trip Id", tripId);

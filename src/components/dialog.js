@@ -12,7 +12,7 @@ import axios from 'axios';
 import { enqueueSnackbar } from 'notistack';
 
 export default function FormDialog(props) {
-  const{id,destination,starts_at,ends_at} = props;
+  const{id,destination,starts_at,ends_at,handleCloseDialog,updateTrip} = props;
   const [open, setOpen] = React.useState(true);
   const { token } = useAuth();
 
@@ -41,9 +41,10 @@ export default function FormDialog(props) {
 
     if (diffInDays > 0){
         try {
-            const response = await axios.put(`/trip//update_user_trip/${id}`,formData,headers);
+            const response = await axios.put(`/trip/update_user_trip/${id}`,formData,headers);
     
             enqueueSnackbar("User's trip updated sucessfully.", { variant: "success" });
+            updateTrip(id,formData);
         } catch (error) {
           console.log("error:", error);
           enqueueSnackbar(error.message, { variant: "error" });
@@ -52,6 +53,7 @@ export default function FormDialog(props) {
         enqueueSnackbar("End date must be greater than start date." ,{ variant: "error" });
       };
     handleClose();
+    handleCloseDialog();
   };
 
   const handleClose = () => {

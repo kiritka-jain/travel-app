@@ -14,7 +14,7 @@ import axios from "axios";
 
 
 export default function AddTripCard(props) {
-  const {updateTrip} = props;
+  const {addTrip} = props;
   const { token } = useAuth();
 
   const [destination, setDestination] = useState("");
@@ -38,7 +38,7 @@ export default function AddTripCard(props) {
             const response = await axios.post("/trip/add_trip",newTrip,headers);
     
             enqueueSnackbar("User's trip added sucessfully.", { variant: "success" });
-            updateTrip(response.data);
+            addTrip(response.data);
             setDestination("");
             setStartDate("2024-01-01");
             setEndDate ("2024-01-01");
