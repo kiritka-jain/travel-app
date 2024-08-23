@@ -6,6 +6,7 @@ import SignUp from "./components/signup";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import DashBoard from "./components/dashboard";
 import { AuthProvider } from "./context/AuthContext.js";
+import FormDialog from "./components/dialog.js";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<DashBoard />} />
+            <Route path="/edit/:id" element={<FormDialog />}/>
           </Routes>
         </Router>
       </div>

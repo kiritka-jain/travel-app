@@ -33,10 +33,6 @@ export default function Trip(){
       setTrips([...trips, updatedData]);
     }
 
-
-    
-    
-
     return (
         <div className="Trip">
           <AddTripCard  updateTrip={updateTrip}/>

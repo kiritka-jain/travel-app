@@ -12,5 +12,7 @@ router.get("/get_user_trips",tripController.getTripsByUserId);
 
 router.put("/update_user_trip/:id",tripController.updateTrip);
 
+router.delete("/delete_user_trip/:id",tripController.deleteTrip);
+
 
 module.exports = router;

@@ -23,26 +23,36 @@ class Trip {
       throw new ServerError("Error adding trip");
     }
   }
-  static async getTripsById(userId){
+  static async getTripsById(userId) {
     try {
-        const trips = await db.Trip.findAll({where:{UserId:userId}});
-        return JSON.stringify(trips);
-      } catch (err) {
-        console.log("error:", err);
-      }
+      const trips = await db.Trip.findAll({ where: { UserId: userId } });
+      return JSON.stringify(trips);
+    } catch (err) {
+      console.log("error:", err);
     }
-    static async updateTrip(tripId,updateParams){
-        console.log(tripId, updateParams);
-        const updatedTrip = await db.Trip.update(updateParams, {
-          where: { id: tripId },
-        });
-        console.log("updated Trip :",updatedTrip);
-        if (updatedTrip[0] === 0) {
-          throw new NotFoundError(" No user exist with this Id.");
-        }
-        return " Updated trip sucessfully.";
-      }
-
   }
+  static async updateTrip(tripId, updateParams) {
+    const updatedTrip = await db.Trip.update(updateParams, {
+      where: { id: tripId },
+    });
+    console.log("updated Trip :", updatedTrip);
+    if (updatedTrip[0] === 0) {
+      throw new NotFoundError(" No user exist with this Id.");
+    }
+    return " Updated trip sucessfully.";
+  }
+  static async deleteTrip(tripId) {
+    console.log("trip Id", tripId);
+    try {
+      const trip = await db.Trip.findOne({ where: { id: tripId } });
+      if (trip) {
+        trip.destroy();
+        console.log("trip deleted sucessfully");
+      }
+    } catch (error) {
+      throw new ServerError(error.message);
+    }
+  }
+}
 
 module.exports = Trip;

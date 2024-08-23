@@ -36,7 +36,6 @@ const userController = {
       res.status(200).send(requiredUser);
   }),
   logoutSeeeion: baseController(async(req,res)=>{
-    console.log(req.headers);
     const token = req.headers['authorization'] || req.headers['Authorization'];
     console.log('Token:', token);
     const requiredSession = await userService.logoutSession(token);
