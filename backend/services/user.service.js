@@ -104,9 +104,15 @@ class User {
         },
       },
     });
-    return session;
-  
-
+    return session
   }
+  static async getUserProfile(userId){
+    const requiredUser = await db.User.findOne({ where: { id: userId } });
+    if (!requiredUser) {
+      throw new NotFoundError(" No user exist with this Id.");
+    }
+    return JSON.stringify(requiredUser.roleId);
+  }
+
 }
 module.exports = User;

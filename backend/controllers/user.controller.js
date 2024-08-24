@@ -40,6 +40,11 @@ const userController = {
     console.log('Token:', token);
     const requiredSession = await userService.logoutSession(token);
     res.status(200).send(requiredSession);
+  }),
+  getUserProfile: baseController(async(req,res)=>{
+    var userId = req.params.id;
+    const requiredProfile = await userService.getUserProfile(userId)
+    res.status(200).send(requiredProfile);
   })
 };
 module.exports = userController;
