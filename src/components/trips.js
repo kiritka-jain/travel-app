@@ -29,24 +29,31 @@ export default function Trip(){
           console.log("err", err);
         }
       };
+
     const addTrip = (updatedData)=>{
       setTrips([...trips, updatedData]);
     }
+
     const updateTrip = (tripId,formData)=>{
-      for(let i=0;i<trips.length;i++){
-        if (trips[i].id === tripId){
-          trips[i].destination = formData.destination;
-          trips[i].StartsAt = formData.StartsAt;
-          trips[i].EndsAt = formData.EndsAt
-        }
-      }
-      setTrips(trips);
+      const updatedTrip = trips.map(trip=>
+        trip.id === tripId? {
+          ...trip, destination:formData.destination,
+          StartsAt:formData.StartsAt,
+          EndsAt: formData.EndsAt
+        }: trip
+      );
+      setTrips(updatedTrip);
+    }
+
+    const deleteTrip = (tripId)=>{
+      const result = trips.filter((trip)=>trip.id!= tripId)
+      setTrips(result);
     }
 
     return (
         <div className="Trip">
           <AddTripCard  addTrip={addTrip}/>
-          <TripTable trips={trips} updateTrip={updateTrip}/>
+          <TripTable trips={trips} updateTrip={updateTrip} deleteTrip={deleteTrip}/>
         </div>
       );
 

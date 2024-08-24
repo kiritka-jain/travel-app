@@ -9,7 +9,7 @@ import axios from "axios";
 
 
 const TripRow = (props) => {
-  const { id, destination, starts_at, ends_at,updateTrip } = props;
+  const { id, destination, starts_at, ends_at,updateTrip,deleteTrip } = props;
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const diffInDays = moment(starts_at).diff(moment(), "days");
   const {token}= useAuth();
@@ -37,6 +37,7 @@ const TripRow = (props) => {
     try {
       const response = await axios.delete(`/trip/delete_user_trip/${id}`, headers);
       enqueueSnackbar("Trip deleted sucessullly.", { variant: "success" });
+      deleteTrip(id);
     } catch (err) {
       console.log("err:", err);
       enqueueSnackbar(err, { variant: "error" });
