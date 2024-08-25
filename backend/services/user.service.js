@@ -10,7 +10,6 @@ const { TIME, Op } = require("sequelize");
 const getTimeWithAddedHours = require("./helperfunction.js");
 
 class User {
-
   static async addUser(userData) {
     try {
       const newUser = await db.User.create(userData);
@@ -25,9 +24,9 @@ class User {
   }
 
   static async getAll(req, res) {
-      const allUsers = await db.User.findAll();
-      const users = JSON.stringify(allUsers);
-      return users;
+    const allUsers = await db.User.findAll();
+    const users = JSON.stringify(allUsers);
+    return users;
   }
 
   static async updateUser(userId, updateParams) {
@@ -77,25 +76,24 @@ class User {
     }
     const sessionData = {
       UserId: requiredUser.id,
-      expiresAt: getTimeWithAddedHours()
+      expiresAt: getTimeWithAddedHours(),
     };
     console.log("sessionData:", sessionData);
     const newSession = await db.Session.create(sessionData);
     console.log(newSession);
     return newSession;
   }
-  static async logoutSession(token){
+  static async logoutSession(token) {
     const session = await this.getSession(token);
     if (session) {
       session.destroy();
       console.log("session destroyed");
     }
-
   }
-  static async getSession(token){
+  static async getSession(token) {
     const currentTime = new Date();
     console.log(currentTime);
-    console.log("ser token:",token);
+    console.log("ser token:", token);
     const session = await db.Session.findOne({
       where: {
         token: token,
@@ -104,7 +102,17 @@ class User {
         },
       },
     });
-    return session
+    return session;
+  }
+  static async deleteUser(token) {
+    const requiredSession = await this.getSession(token);
+    const requiredUserId = requiredSession.UserId;
+    const requiredUser = await db.User.findOne({ where: { id: requiredUserId } });
+    if (requiredUser) {
+      await requiredUser.destroy();
+      await this.logoutSession(token);
+      return "user profile deleted sucessfully";
+    }
   }
 }
 module.exports = User;

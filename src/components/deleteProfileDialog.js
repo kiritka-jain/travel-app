@@ -13,6 +13,9 @@ export default function DeleteProfileDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleDelete = ()=>{
+    
+  }
 
   return (
     <React.Fragment>
@@ -29,7 +32,7 @@ export default function DeleteProfileDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={handleDelete} autoFocus>
             Yes
           </Button>
         </DialogActions>

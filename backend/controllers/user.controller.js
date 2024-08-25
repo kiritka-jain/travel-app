@@ -43,7 +43,12 @@ const userController = {
   getUserProfile: baseController(async(req,res)=>{
     const userId = req.id;
     console.log("req id",userId);
-    const requiredProfile = await userService.getUserById(userId)
+    const requiredProfile = await userService.getUserById(userId);
+    res.status(200).send(requiredProfile);
+  }),
+  deleteUser: baseController(async(req,res)=>{
+    const token = req.headers['authorization'] || req.headers['Authorization'];
+    const requiredProfile = await userService.deleteUser(token);
     res.status(200).send(requiredProfile);
   })
 };
