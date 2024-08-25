@@ -6,9 +6,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { useAuth } from "../context/AuthContext";
 import LogOut  from "./logout.js";
+import { useState } from "react";
 
 const NavBar = (props) => {
   const { token } = useAuth();
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -24,7 +26,11 @@ const NavBar = (props) => {
               </Button>
             </>
           ) : (
-            <LogOut />
+            <>
+            <Button color="inherit"href="/profile">Profile</Button>
+             <LogOut />
+            </>
+           
           )}
         </Toolbar>
       </AppBar>

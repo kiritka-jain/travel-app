@@ -18,7 +18,7 @@ const userController = {
       res.status(200).send(allUsers);
   }),
   updateUser: baseController(async (req, res) => {
-      var userId = req.params.id;
+      var userId = req.id;
       const updateParams = req.body;
       const updateUser = await userService.updateUser(userId, updateParams);
       res.status(200).send(updateUser);
@@ -37,13 +37,13 @@ const userController = {
   }),
   logoutSeeeion: baseController(async(req,res)=>{
     const token = req.headers['authorization'] || req.headers['Authorization'];
-    console.log('Token:', token);
     const requiredSession = await userService.logoutSession(token);
     res.status(200).send(requiredSession);
   }),
   getUserProfile: baseController(async(req,res)=>{
-    var userId = req.params.id;
-    const requiredProfile = await userService.getUserProfile(userId)
+    const userId = req.id;
+    console.log("req id",userId);
+    const requiredProfile = await userService.getUserById(userId)
     res.status(200).send(requiredProfile);
   })
 };

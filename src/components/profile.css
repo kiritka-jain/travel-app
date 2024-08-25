@@ -1,0 +1,21 @@
+.profileformcontainer{
+    display: flex;
+    border-width: 3px;
+    padding: 2px;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    justify-content: flex-start;
+    flex-direction: column;
+
+}
+.profileform{
+    display:flex;
+    height:350px;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    justify-content: space-evenly;
+}
