@@ -10,6 +10,7 @@ import DeleteProfileDialog from "./deleteProfileDialog";
 
 const Profile = (props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAdmin ,setIsAdmin] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     roleId: "",
@@ -35,10 +36,14 @@ const Profile = (props) => {
     try {
       const Response = await axios.get("/user/get_user_profile", headers);
       const userData = Response.data;
+      if (userData.roleId === 2){
+        setIsAdmin(true);
+      }
       setFormData({
         name: userData.name,
         roleId: userData.roleId,
       });
+
     } catch (err) {
       console.log("err", err);
     }
@@ -65,11 +70,12 @@ const Profile = (props) => {
   
   return (
     <div>
-      <NavBar />
+      <NavBar isAdmin={isAdmin}/>
       <div className="profileformcontainer">
         <form>
           <div className="profileform">
-            <h1> Welcome User</h1>
+            {(isAdmin)? <h1>Welcome Admin</h1>: <h1> Welcome User</h1>}
+           
             <TextField
               id="outlined-basic"
               label="Name"

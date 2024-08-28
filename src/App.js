@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import DashBoard from "./components/dashboard";
 import { AuthProvider } from "./context/AuthContext.js";
 import FormDialog from "./components/dialog.js";
+import AdminProfile from "./components/adminprofile.js";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/dashboard" element={<DashBoard />} />
             <Route path="/edit/:id" element={<FormDialog />}/>
             <Route path="/profile" element={<Profile />}/>
+            <Route path="/admin" element={<AdminProfile />}/>
           </Routes>
         </Router>
       </div>
