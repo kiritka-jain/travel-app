@@ -36,8 +36,12 @@ const NavBar = (props) => {
                   <Button color="inherit" href="/admin">
                     Get All Users
                   </Button>
+                  <Button color="inherit" href="/trips">
+                    Get All Trips
+                  </Button>
                 </>
               )}
+              <Button color="inherit" href="/home">Home</Button>
               <LogOut />
             </>
           )}
